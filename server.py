@@ -19,15 +19,6 @@ async def run_server(websocket, path):
     data = await websocket.recv()
     print(f"received {data}")
 
-    # for sql:
-    #   -> need to parse string
-    #   -> validate string
-    # if valid, do appropriate operation:
-    #   -> create/drop database
-    #   -> create/drop/alter table
-    #   -> save data to CSV file
-    #   -> select some data
-
     result = process.process(data)
     if type(result) == Exception:
         server_return = bcolors.FAIL + result.msg + bcolors.ENDC

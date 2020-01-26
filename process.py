@@ -5,7 +5,7 @@ def process(data):
     parsed_result = str_parse.parse_and_validate(data)
 
     if type(parsed_result) == Exception:
-        return parsed_result.msg
+        return parsed_result
     else:
         # TODO: think about who calls
         # the database object?
@@ -21,6 +21,4 @@ def process(data):
             else:
                 db = Database(db_name)
 
-            db.create()
-
-    return "success!"
+            return db.create()

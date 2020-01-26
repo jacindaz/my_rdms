@@ -17,9 +17,6 @@ class Database:
           -> create new directory in public
         """
 
-        # -> check if schema exists
-        # -> check if db exists
-
         schema_exists = os.path.isdir(f"data_files/{self.schema}")
         if schema_exists:
             database_exists = os.path.isdir(f"data_files/{self.schema}/{self.name}")

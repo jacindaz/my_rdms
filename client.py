@@ -4,12 +4,12 @@ import websockets
 async def hello():
     uri = "ws://localhost:8765"
     async with websockets.connect(uri) as websocket:
-        name = input("What's your name? ")
+        data = input("mydatabase client >>>> ")
 
-        await websocket.send(name)
-        print(f"> {name}")
+        await websocket.send(data)
+        print(f">>>> {data}")
 
-        greeting = await websocket.recv()
-        print(f"< {greeting}")
+        back_from_server = await websocket.recv()
+        print(back_from_server)
 
 asyncio.get_event_loop().run_until_complete(hello())

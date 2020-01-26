@@ -1,16 +1,27 @@
 import asyncio
 import websockets
+import ipdb
 
-async def hello(websocket, path):
-    name = await websocket.recv()
-    print(f"< {name}")
+import process
 
-    greeting = f"Hello {name} from your server!"
+async def run_server(websocket, path):
+    data = await websocket.recv()
+    print(f"received {data}")
 
-    await websocket.send(greeting)
-    print(f"> {greeting}")
+    # for sql:
+    #   -> need to parse string
+    #   -> validate string
+    # if valid, do appropriate operation:
+    #   -> create/drop database
+    #   -> create/drop/alter table
+    #   -> save data to CSV file
+    #   -> select some data
 
-start_server = websockets.serve(hello, "localhost", 8765)
+    result = process.process(data)
+    server_return = f"{result}"
+    await websocket.send(server_return)
+
+start_server = websockets.serve(run_server, "localhost", 8765)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()

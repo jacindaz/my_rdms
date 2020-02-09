@@ -1,23 +1,20 @@
 import asyncio
 import websockets
 import ipdb
-
 import process
 
+
 class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 
 async def run_server(websocket, path):
     data = await websocket.recv()
     print(f"received {data}")
+
+    import ipdb; ipdb.set_trace()
 
     result = process.process(data)
     if type(result) == Exception:

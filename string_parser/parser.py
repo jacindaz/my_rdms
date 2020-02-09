@@ -8,6 +8,7 @@ import ipdb
 KEYWORDS = {
     "create": set(["database", "table"]),
     "drop": set(["database", "table"]),
+    "\\c": set()
 }
 
 def parse_and_validate(mystr):
@@ -19,16 +20,18 @@ def parse_and_validate(mystr):
     words = mystr.split(" ")
     num_words = len(words)
 
-    if num_words >= 1:
-        operation = words[0]
     if num_words >= 2:
         entity = words[1]
-
-    if operation in KEYWORDS and entity in KEYWORDS[operation]:
-        if operation == "create" and entity == "database":
-            if num_words == 3:
+        if operation in KEYWORDS and entity in KEYWORDS[operation]:
+            if operation == "create" and entity == "database":
+                if num_words == 3:
+                    return words
+                else:
+                    excpt = Exception()
+                    excpt.msg = "Too many inputs for create database."
+                    return excpt
+    elif num_words == 1:
+        operation = words[0]
+        if operation in KEYWORDS:
+            if operation == "\\c":
                 return words
-            else:
-                excpt = Exception()
-                excpt.msg = "Too many inputs for create database."
-                return excpt

@@ -7,12 +7,22 @@ def process(data):
     if type(parsed_result) == Exception:
         return parsed_result
     else:
-        # TODO: think about who calls
-        # the database object?
-        operation = parsed_result[0]
-        entity = parsed_result[1]
-        db_name = parsed_result[2]
+        word_len = len(parsed_result)
 
-        if operation == "create" and entity == "database":
-            db = Database(db_name)
-            db.create()
+        if word_len == 3:
+            # TODO: think about who calls
+            # the database object?
+            operation = parsed_result[0]
+            entity = parsed_result[1]
+            db_name = parsed_result[2]
+
+            if operation == "create" and entity == "database":
+                db = Database(db_name)
+                db.create()
+        elif word_len == 2:
+            operation = parsed_result[0]
+            name = parsed_result[1]
+
+            if operation == "\\c":
+                # connect to a database
+                pass
